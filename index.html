@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NetCalc - CIDR & Subnet Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="container">
+    <h1>NetCalc</h1>
+    <p>Simple CIDR & Subnet Calculator for VPCs and Azure VNets</p>
+
+    <section class="card">
+      <label for="cidrInput">Enter CIDR Block (e.g., 192.168.0.0/24):</label>
+      <input type="text" id="cidrInput" placeholder="192.168.0.0/24" />
+      <button onclick="calculateCIDR()">Calculate</button>
+
+      <div id="result" class="output"></div>
+    </section>
+
+    <section class="card">
+      <h2>Subnet Calculator</h2>
+      <label for="vpcCidrInput">Enter VPC CIDR Block:</label>
+      <input type="text" id="vpcCidrInput" placeholder="e.g., 10.0.0.0/16" />
+
+      <label for="subnetCountInput">Enter Number of Subnets:</label>
+      <input type="text" id="subnetCountInput" placeholder="e.g., 4" />
+
+      <button onclick="calculateSubnets()">Generate Subnets</button>
+      <div id="subnetResults" class="output"></div>
+    </section>
+
+    <details class="card">
+      <summary><strong>📘 IP Address Info & Subnet Tables</strong></summary>
+      <div>
+        <h3>Private IP Address Ranges</h3>
+        <ul>
+          <li>10.0.0.0 – 10.255.255.255 (10/8 prefix)</li>
+          <li>172.16.0.0 – 172.31.255.255 (172.16/12 prefix)</li>
+          <li>192.168.0.0 – 192.168.255.255 (192.168/16 prefix)</li>
+        </ul>
+
+        <h3>Public IP Addresses</h3>
+        <p>All other IPs outside the private ranges above are considered public IPs.</p>
+
+        <h3>Special IP Addresses</h3>
+        <ul>
+          <li>127.0.0.0/8 - Loopback</li>
+          <li>169.254.0.0/16 - Link-local</li>
+          <li>224.0.0.0/4 - Multicast</li>
+          <li>240.0.0.0/4 - Reserved for future use</li>
+        </ul>
+
+        <h3>Common Subnet Prefixes</h3>
+        <table>
+          <thead>
+            <tr><th>Prefix</th><th>Subnet Mask</th><th># of Hosts</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>/0</td><td>0.0.0.0</td><td>4,294,967,296</td></tr>
+            <tr><td>/1</td><td>128.0.0.0</td><td>2,147,483,648</td></tr>
+            <tr><td>/2</td><td>192.0.0.0</td><td>1,073,741,824</td></tr>
+            <tr><td>/3</td><td>224.0.0.0</td><td>536,870,912</td></tr>
+            <tr><td>/4</td><td>240.0.0.0</td><td>268,435,456</td></tr>
+            <tr><td>/5</td><td>248.0.0.0</td><td>134,217,728</td></tr>
+            <tr><td>/6</td><td>252.0.0.0</td><td>67,108,864</td></tr>
+            <tr><td>/7</td><td>254.0.0.0</td><td>33,554,432</td></tr>
+            <tr><td>/8</td><td>255.0.0.0</td><td>16,777,216</td></tr>
+            <tr><td>/9</td><td>255.128.0.0</td><td>8,388,608</td></tr>
+            <tr><td>/10</td><td>255.192.0.0</td><td>4,194,304</td></tr>
+            <tr><td>/11</td><td>255.224.0.0</td><td>2,097,152</td></tr>
+            <tr><td>/12</td><td>255.240.0.0</td><td>1,048,576</td></tr>
+            <tr><td>/13</td><td>255.248.0.0</td><td>524,288</td></tr>
+            <tr><td>/14</td><td>255.252.0.0</td><td>262,144</td></tr>
+            <tr><td>/15</td><td>255.254.0.0</td><td>131,072</td></tr>
+            <tr><td>/16</td><td>255.255.0.0</td><td>65,536</td></tr>
+            <tr><td>/17</td><td>255.255.128.0</td><td>32,768</td></tr>
+            <tr><td>/18</td><td>255.255.192.0</td><td>16,384</td></tr>
+            <tr><td>/19</td><td>255.255.224.0</td><td>8,192</td></tr>
+            <tr><td>/20</td><td>255.255.240.0</td><td>4,096</td></tr>
+            <tr><td>/21</td><td>255.255.248.0</td><td>2,048</td></tr>
+            <tr><td>/22</td><td>255.255.252.0</td><td>1,024</td></tr>
+            <tr><td>/23</td><td>255.255.254.0</td><td>512</td></tr>
+            <tr><td>/24</td><td>255.255.255.0</td><td>256</td></tr>
+            <tr><td>/25</td><td>255.255.255.128</td><td>128</td></tr>
+            <tr><td>/26</td><td>255.255.255.192</td><td>64</td></tr>
+            <tr><td>/27</td><td>255.255.255.224</td><td>32</td></tr>
+            <tr><td>/28</td><td>255.255.255.240</td><td>16</td></tr>
+            <tr><td>/29</td><td>255.255.255.248</td><td>8</td></tr>
+            <tr><td>/30</td><td>255.255.255.252</td><td>4</td></tr>
+            <tr><td>/31</td><td>255.255.255.254</td><td>2</td></tr>
+            <tr><td>/32</td><td>255.255.255.255</td><td>1</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Helpful Notes</h3>
+        <ul>
+          <li>/32 represents a single IP (host).</li>
+          <li>/30 is often used for point-to-point links.</li>
+          <li>/24 is common for typical small networks.</li>
+        </ul>
+
+<h3>IP Address Classes</h3>
+<table>
+  <thead>
+    <tr><th>Class</th><th>Range</th><th>Default Subnet Mask</th><th>Purpose</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>A</td><td>1.0.0.0 – 126.255.255.255</td><td>255.0.0.0</td><td>Large networks</td></tr>
+    <tr><td>B</td><td>128.0.0.0 – 191.255.255.255</td><td>255.255.0.0</td><td>Medium-sized networks</td></tr>
+    <tr><td>C</td><td>192.0.0.0 – 223.255.255.255</td><td>255.255.255.0</td><td>Small networks</td></tr>
+    <tr><td>D</td><td>224.0.0.0 – 239.255.255.255</td><td>N/A</td><td>Multicast</td></tr>
+    <tr><td>E</td><td>240.0.0.0 – 255.255.255.255</td><td>N/A</td><td>Experimental</td></tr>
+  </tbody>
+</table>
+
+
+      </div>
+    </details>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
