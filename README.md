@@ -6,7 +6,6 @@
 
 [Click here to try it out!](https://emiresh.github.io/NetCalc/)
 
----
 
 ## ✨ Features
 
@@ -20,4 +19,3 @@
 - 🌓 Modern, minimal, dark-themed UI
 - 📱 Fully responsive (desktop + mobile)
 
----
